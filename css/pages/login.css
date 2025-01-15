@@ -1,0 +1,33 @@
+/* login.css */
+
+/* Login Form Wrapper */
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 70vh;
+    background-color: var(--light-gray);
+}
+
+.login-form {
+    background-color: var(--white);
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+}
+
+.login-form h1 {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    font-size: 1.75rem;
+}
+
+.login-form input {
+    margin-bottom: 1rem;
+}
+
+.login-form button {
+    width: 100%;
+}

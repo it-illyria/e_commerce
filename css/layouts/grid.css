@@ -1,0 +1,33 @@
+/* grid.css */
+
+/* Grid container */
+.grid {
+    display: grid;
+    gap: 1rem; /* Space between grid items */
+}
+
+/* Responsive columns */
+.grid-cols-2 {
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.grid-cols-3 {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.grid-cols-4 {
+    grid-template-columns: repeat(4, 1fr);
+}
+
+/* Responsive breakpoints */
+@media (max-width: 768px) {
+    .grid-cols-2, .grid-cols-3, .grid-cols-4 {
+        grid-template-columns: repeat(2, 1fr); /* Adjust to 2 columns on smaller screens */
+    }
+}
+
+@media (max-width: 480px) {
+    .grid-cols-2, .grid-cols-3, .grid-cols-4 {
+        grid-template-columns: 1fr; /* Single column for very small screens */
+    }
+}

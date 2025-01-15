@@ -1,0 +1,21 @@
+/* Apply flexbox to the body */
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Make the body take at least 100% of the viewport height */
+    margin: 0; /* Remove default body margin */
+}
+
+/* Make the main content take up the available space */
+.main-content {
+    flex-grow: 1; /* Allow the content area to grow and fill available space */
+}
+
+/* Style for the footer */
+footer {
+    background-color: #f8f8f8; /* Light background color */
+    padding: 20px; /* Add some padding */
+    text-align: center; /* Center-align text */
+    width: 100%; /* Make the footer take full width */
+    border-top: 1px solid #ddd; /* Optional: a small border at the top of the footer */
+}

@@ -1,0 +1,48 @@
+/* colors.css */
+
+/* Primary colors */
+:root {
+    --primary: #007bff;
+    --primary-hover: #0056b3;
+
+    /* Secondary colors */
+    --secondary: #6c757d;
+    --secondary-hover: #5a6268;
+
+    /* Neutral colors */
+    --white: #ffffff;
+    --black: #000000;
+    --gray: #f8f9fa;
+    --dark-gray: #343a40;
+
+    /* Alerts */
+    --success: #28a745;
+    --danger: #dc3545;
+    --warning: #ffc107;
+    --info: #17a2b8;
+
+    /* Background */
+    --background: #f4f6f9;
+}
+
+/* Link colors */
+a {
+    color: var(--primary);
+}
+
+a:hover {
+    color: var(--primary-hover);
+}
+
+/* Button default background colors */
+button {
+    background-color: var(--primary);
+    color: var(--white);
+    border: none;
+    border-radius: 4px;
+    padding: 0.5em 1em;
+}
+
+button:hover {
+    background-color: var(--primary-hover);
+}

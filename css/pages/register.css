@@ -1,0 +1,33 @@
+/* register.css */
+
+/* Registration Form Wrapper */
+.register-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 70vh;
+    background-color: var(--light-gray);
+}
+
+.register-form {
+    background-color: var(--white);
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+}
+
+.register-form h1 {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    font-size: 1.75rem;
+}
+
+.register-form input {
+    margin-bottom: 1rem;
+}
+
+.register-form button {
+    width: 100%;
+}

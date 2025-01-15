@@ -1,0 +1,226 @@
+/* product.css */
+
+/* Product Grid Section */
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    margin: 2rem auto;
+    max-width: 1200px;
+    padding: 0 1rem;
+}
+
+/* Product Card */
+.product-card {
+    background-color: var(--white);
+    border: 1px solid var(--gray);
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.1);
+}
+
+.product-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-bottom: 1px solid var(--light-gray);
+}
+
+.product-card .product-info {
+    padding: 1rem;
+    text-align: center;
+}
+
+.product-card h3 {
+    font-size: 1.2rem;
+    margin: 0.5rem 0;
+    color: var(--dark-gray);
+}
+
+.product-card p {
+    font-size: 1rem;
+    margin: 0.5rem 0;
+    color: var(--gray);
+}
+
+.product-card .price {
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: var(--primary);
+}
+
+.product-card button {
+    margin-top: 1rem;
+    padding: 0.5rem 1rem;
+    background-color: var(--primary);
+    color: var(--white);
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.product-card button:hover {
+    background-color: var(--primary-dark);
+}
+
+/* Filter and Sorting Section */
+.filter-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 1.5rem auto;
+    max-width: 1200px;
+    padding: 0 1rem;
+}
+
+.filter-bar select,
+.filter-bar input {
+    padding: 0.5rem;
+    border: 1px solid var(--gray);
+    border-radius: 4px;
+}
+
+.filter-bar button {
+    padding: 0.5rem 1rem;
+    background-color: var(--primary);
+    color: var(--white);
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.filter-bar button:hover {
+    background-color: var(--primary-dark);
+}
+
+/* Product Details Section */
+.product-details {
+    margin: 2rem auto;
+    max-width: 800px;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.product-details img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+
+.product-details .details-info {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.product-details h1 {
+    font-size: 2rem;
+    font-weight: bold;
+    color: var(--dark-gray);
+}
+
+.product-details p {
+    font-size: 1rem;
+    color: var(--gray);
+}
+
+.product-details .price {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--primary);
+}
+
+.product-details button {
+    padding: 0.5rem 1.5rem;
+    background-color: var(--primary);
+    color: var(--white);
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.product-details button:hover {
+    background-color: var(--primary-dark);
+}
+
+/* Ensure carousel fills the container */
+#productCarousel {
+    width: 100%;
+    max-width: 1200px; /* Limit the max width */
+    margin: 0 auto; /* Center carousel */
+    padding: 20px 0; /* Add padding for better spacing */
+}
+
+/* Carousel inner and items */
+.carousel-inner {
+    display: flex;
+    justify-content: center; /* Center carousel items */
+}
+
+.carousel-item {
+    display: flex;
+    justify-content: center; /* Center each item inside the carousel */
+}
+
+.card {
+    width: 100%;
+    max-width: 300px; /* Limit card width */
+    margin: 0 10px; /* Add space between cards */
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.card-img-top {
+    width: 100%;
+    height: 200px;
+    object-fit: cover; /* Ensures images cover the area while maintaining aspect ratio */
+    border-radius: 10px 10px 0 0; /* Round top corners */
+}
+
+/* Style the carousel controls */
+.carousel-control-prev-icon, .carousel-control-next-icon {
+    background-color: rgba(0, 0, 0, 0.5); /* Dark background for controls */
+    border-radius: 50%; /* Round the control buttons */
+    padding: 10px;
+}
+
+.carousel-control-prev-icon:hover, .carousel-control-next-icon:hover {
+    background-color: rgba(0, 0, 0, 0.8); /* Darker background on hover */
+}
+
+/* Hide carousel controls when there’s no need for them */
+.carousel-control-prev, .carousel-control-next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10; /* Make sure controls appear above the carousel items */
+}
+
+/* Adjust spacing on smaller screens */
+@media (max-width: 768px) {
+    .carousel-item {
+        flex-direction: column; /* Stack items vertically on mobile */
+    }
+
+    .card {
+        max-width: 100%;
+        margin-bottom: 20px; /* Add margin between stacked cards */
+    }
+
+    #productCarousel {
+        padding: 10px 0; /* Adjust padding for mobile */
+    }
+}
+
+

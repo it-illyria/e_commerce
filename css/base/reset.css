@@ -1,0 +1,45 @@
+/* reset.css */
+
+/* Remove default margins and paddings */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Set default font size and family */
+html, body {
+    font-size: 16px;
+    font-family: Arial, sans-serif;
+    line-height: 1.5;
+    color: #333;
+    background-color: #fff;
+}
+
+/* Remove default styles from common elements */
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+ul, ol {
+    list-style: none;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+button {
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+

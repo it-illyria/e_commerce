@@ -1,0 +1,14 @@
+/* container.css */
+
+/* Container */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+/* Fluid container for edge-to-edge content */
+.container-fluid {
+    width: 100%;
+    padding: 0 1rem;
+}

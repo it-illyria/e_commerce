@@ -1,0 +1,35 @@
+/* home.css */
+
+/* Hero Section */
+.hero {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 60vh;
+    background-image: url('../../images/hero-banner.jpg'); /* Adjust path based on your directory */
+    background-size: cover;
+    background-position: center;
+    color: var(--white);
+    text-align: center;
+}
+
+.hero h1 {
+    font-size: 3rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
+
+.hero p {
+    font-size: 1.25rem;
+}
+
+/* Featured Products */
+.featured-products {
+    margin: 2rem 0;
+}
+
+.featured-products h2 {
+    font-size: 2rem;
+    text-align: center;
+    margin-bottom: 1.5rem;
+}

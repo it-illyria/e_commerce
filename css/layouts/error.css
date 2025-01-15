@@ -1,0 +1,43 @@
+/* General styles for the error page */
+.error-page {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin: 0 auto;
+    padding: 2rem;
+    max-width: 600px;
+    background-color: var(--light-gray, #f9f9f9); /* Fallback to #f9f9f9 if --light-gray is not defined */
+    border: 1px solid var(--gray, #ddd); /* Fallback to #ddd if --gray is not defined */
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* 404 Header */
+.error-page h1 {
+    font-size: 8rem;
+    font-weight: bold;
+    margin: 0;
+    color: var(--primary, #007bff); /* Fallback to #007bff if --primary is not defined */
+}
+
+/* Text styles */
+.error-page p {
+    font-size: 1.25rem;
+    color: var(--dark-gray, #555); /* Fallback to #555 if --dark-gray is not defined */
+    margin: 1rem 0;
+}
+
+/* Link styles */
+.error-page a {
+    color: var(--primary, #007bff); /* Fallback to #007bff if --primary is not defined */
+    font-weight: 600;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.error-page a:hover {
+    color: var(--primary-hover, #0056b3); /* Fallback to #0056b3 if --primary-hover is not defined */
+    text-decoration: underline;
+}

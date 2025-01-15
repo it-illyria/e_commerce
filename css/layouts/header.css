@@ -1,0 +1,37 @@
+/* header.css */
+
+/* Header container */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background-color: var(--primary);
+    color: var(--white);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Logo */
+.header-logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--white);
+}
+
+/* Navigation links */
+.header-nav {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.header-nav a {
+    color: var(--white);
+    font-size: 1rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.header-nav a:hover {
+    color: var(--gray);
+}
