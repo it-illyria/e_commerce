@@ -32,6 +32,23 @@ switch ($uri) {
         (new UserController())->login();
         break;
 
+    case '/user/logout':
+        session_start();
+        session_destroy();
+        header('Location: /');
+        exit;
+
+    case '/user/profile':
+        $pageTitle = 'Profile';
+        if ($userId) {
+            (new UserController())->viewProfile($userId);
+        } else {
+            header('Location: /');
+            exit();
+        }
+        break;
+
+
     // Add to Cart route
     case '/cart/addToCart':
         $productId = $_POST['id'] ?? null;  // Expect product ID in the POST data

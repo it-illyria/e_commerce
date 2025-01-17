@@ -44,4 +44,31 @@ class User
         $result = $stmt->get_result();
         return $result->fetch_assoc();
     }
+
+    public function getUserById($userId)
+    {
+        // Sanitize and prepare the query
+        $query = "SELECT id, username, email, created_at FROM users WHERE id = ?";
+
+        $stmt = $this->db->prepare($query);
+
+        if (!$stmt) {
+            die('Prepare failed: ' . $this->db->error);
+        }
+
+        $stmt->bind_param('i', $userId);
+
+        if (!$stmt->execute()) {
+            die('Execution failed: ' . $stmt->error);
+        }
+
+        $result = $stmt->get_result();
+        $user = $result->fetch_assoc();
+
+        $stmt->close();
+
+        return $user;
+    }
+
+
 }

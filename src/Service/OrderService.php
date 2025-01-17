@@ -31,4 +31,10 @@ class OrderService
         $this->orderModel->createOrder($userId, $address, $total, $phone);
     }
 
+    public function getCartItems()
+    {
+        return $_SESSION['cart'] ?? [];
+    }
+
+
 }

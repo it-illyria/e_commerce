@@ -49,4 +49,23 @@ class CartService
     {
         return $this->cartModel->removeFromCart($productId, $userId);
     }
+
+    public function updateProductQuantity($productId, $userId, $quantity): bool
+    {
+        return $this->cartModel->updateProductQuantity($productId, $userId, $quantity);
+    }
+
+    public function mergeGuestCartWithUserCart($userId)
+    {
+        if (isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
+            foreach ($_SESSION['cart'] as $productId => $item) {
+                $this->cartModel->addToCartForUser($productId, $userId, $item['quantity']);
+            }
+
+            // Clear the guest cart session
+            unset($_SESSION['cart']);
+        }
+    }
+
+
 }

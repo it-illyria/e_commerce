@@ -19,16 +19,16 @@ class CartController
 
     public function viewCart($userId = null)
     {
-        // If the user is not logged in, the cart items will be fetched from the session for a guest.
+
         if ($userId) {
-            // Fetch cart items for logged-in users
             $cartItems = $this->cartService->getCartItems($userId);
-        } else {
-            // Fetch cart items for guest users from the session
-            $cartItems = $this->cartService->getCartItems();
+            if (empty($cartItems) && isset($_SESSION['cart'])) {
+                $this->cartService->mergeGuestCartWithUserCart($userId);
+                $cartItems = $this->cartService->getCartItems($userId);
+            }
+        } else {$cartItems = $this->cartService->getCartItems();
         }
 
-        // Fetch the product details for each cart item
         foreach ($cartItems as &$item) {
             if (isset($item['product_id'])) {
                 $productDetails = $this->cartService->getProductDetailsById($item['product_id']);
@@ -51,7 +51,6 @@ class CartController
         include __DIR__ . '/../views/cart.php';
     }
 
-
     public function addToCart($productId, $userId = null)
     {
         // If the user is logged in
@@ -67,16 +66,41 @@ class CartController
         exit;
     }
 
-    // Remove from cart (supports both logged-in users and guests)
-    public function removeFromCart($productId, $userId = null)
+    // Update Cart Quantity
+    public function updateQuantity()
     {
-        if ($userId) {
-            $this->cartService->removeFromCart($productId, $userId);
+        $productId = $_POST['productId'];
+        $quantity = $_POST['quantity'];
+
+        if ($_SESSION['user_id']) {
+            // Update for logged-in user
+            $this->cartService->updateProductQuantity($productId, $_SESSION['user_id'], $quantity);
         } else {
+            // Update for guest user
+            $this->cartService->updateProductQuantity($productId, null, $quantity);
+        }
+
+        $cartTotal = $this->cartService->calculateTotal($_SESSION['user_id'] ?? null);
+
+        echo json_encode([
+            'cartUpdated' => true,
+            'cartTotal' => number_format($cartTotal, 2)
+        ]);
+    }
+
+    // Remove from Cart
+    public function removeFromCart()
+    {
+        $productId = $_POST['productId'];
+
+        if ($_SESSION['user_id']) {
+            // Remove for logged-in user
+            $this->cartService->removeFromCart($productId, $_SESSION['user_id']);
+        } else {
+            // Remove for guest user
             $this->cartService->removeFromCart($productId);
         }
 
-        header("Location: /cart");
-        exit;
+        echo json_encode(['removed' => true]);
     }
 }

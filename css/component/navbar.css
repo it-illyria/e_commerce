@@ -33,3 +33,38 @@
 .navbar-links a:hover {
     color: var(--gray);
 }
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #333;
+    color: #fff;
+}
+
+.navbar-logo a {
+    color: #fff;
+    font-size: 24px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.navbar-links a,
+.navbar-user {
+    color: #fff;
+    margin: 0 10px;
+    text-decoration: none;
+}
+
+.navbar .btn-logout {
+    background-color: #ff5722;
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 4px;
+    text-decoration: none;
+}
+
+.navbar .btn-logout:hover {
+    background-color: #e64a19;
+}

@@ -15,6 +15,7 @@
 @import url('pages/checkout.css');
 @import url('pages/register.css');
 @import url('pages/cart.css');
+@import url('pages/profile.css');
 
 /* Layout styles */
 @import url('layouts/header.css');

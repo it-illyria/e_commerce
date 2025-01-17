@@ -6,6 +6,7 @@ use App\Model\User;
 
 class AuthenticationService
 {
+
     private User $userModel;
 
     public function __construct()
@@ -20,9 +21,7 @@ class AuthenticationService
             throw new \Exception("Username or email already exists.");
         }
 
-        // Hash the password using PASSWORD_BCRYPT
-        $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
-        $this->userModel->createUser($username, $email, $hashedPassword);
+        $this->userModel->createUser($username, $email, $password);
     }
 
     public function loginUser($username, $password): bool
@@ -35,23 +34,33 @@ class AuthenticationService
             return false;
         }
 
-        // Verify the password using PASSWORD_BCRYPT
-        if (password_verify($password, $user['password'])) {
+        // Log the retrieved user details
+        error_log("User Found: " . print_r($user, true));
+        error_log("Stored Hash: " . $user['password']);
 
+        // Verify the password using PASSWORD_VERIFY
+        if (password_verify($password, $user['password'])) {
             session_regenerate_id(true);
             $_SESSION['user_id'] = $user['id'];
             $_SESSION['username'] = $user['username'];
-
+            error_log("Login successful for username: $username");
             return true;
         }
 
+        error_log("Password verification failed for username: $username");
         return false;
     }
+
 
     public function logout()
     {
         session_start();
         $_SESSION = [];
         session_destroy();
+    }
+
+    public function getUserById($userId)
+    {
+        return $this->userModel->getUserById($userId);
     }
 }

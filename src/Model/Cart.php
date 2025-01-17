@@ -48,6 +48,7 @@ class Cart
         }
 
         $cartItems = [];
+
         foreach ($_SESSION['cart'] as $productId => $item) {
             $query = "SELECT name, price, image_path, stock FROM products WHERE id = ?";
             $stmt = $this->db->prepare($query);
@@ -60,28 +61,13 @@ class Cart
                 $cartItems[] = array_merge($product, ['quantity' => $item['quantity']]);
             }
         }
+
         return $cartItems;
     }
 
-    public function getProductDetailsById($productId)
-    {
-        $query = "SELECT * FROM products WHERE id = ?";
-        $stmt = $this->db->prepare($query);
-        $stmt->bind_param("i", $productId);
-        $stmt->execute();
-        $result = $stmt->get_result();
-
-        if ($result->num_rows > 0) {
-            return $result->fetch_assoc();
-        }
-
-        return null;
-    }
-
-
     private function getCartItemsForLoggedUser($userId): array
     {
-        $query = "SELECT ci.*, p.name, p.price, p.image_path, p.stock 
+        $query = "SELECT ci.*, p.name, p.price, p.image_path, p.stock
                   FROM cart_items ci
                   JOIN products p ON ci.product_id = p.id
                   WHERE ci.user_id = ?";
@@ -92,7 +78,6 @@ class Cart
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
-    // Calculate the total price for a user or guest
     public function calculateTotal($userId = null): float
     {
         if ($userId) {
@@ -114,8 +99,10 @@ class Cart
             $product = $result->fetch_assoc();
 
             $price = $product['price'];
+
+            // Price increase logic for low stock
             if ($product['stock'] < 10) {
-                $price *= 1.1;  // Apply 10% price increase for low stock
+                $price *= 1.1;
             }
 
             $total += $price * $item['quantity'];
@@ -131,8 +118,10 @@ class Cart
 
         foreach ($cartItems as $item) {
             $price = $item['price'];
+
+            // Price increase logic for low stock
             if ($item['stock'] < 10) {
-                $price *= 1.1;  // Apply 10% price increase for low stock
+                $price *= 1.1;
             }
 
             $total += $price * $item['quantity'];
@@ -141,7 +130,6 @@ class Cart
         return $total;
     }
 
-    // Update product quantity in cart
     public function updateProductQuantity($productId, $userId, $quantity): bool
     {
         if ($userId) {
@@ -155,28 +143,74 @@ class Cart
                 return true;
             }
         }
+
         return false;
     }
 
     // Add the product to the session for guest users
     private function addProductForGuest($productId): bool
     {
-        // Check if the session cart already exists
         if (!isset($_SESSION['cart'])) {
             $_SESSION['cart'] = [];
         }
 
-        // If the product already exists in the cart, update its quantity
         if (isset($_SESSION['cart'][$productId])) {
             $_SESSION['cart'][$productId]['quantity']++;
         } else {
-            // If the product is not in the cart, add it with quantity 1
-            $_SESSION['cart'][$productId] = [
-                'quantity' => 1
-            ];
+            $_SESSION['cart'][$productId] = ['quantity' => 1];
         }
 
         return true;
     }
 
+    private function addProductForLoggedUser($productId, $userId): bool
+    {
+        $query = "INSERT INTO cart_items (user_id, product_id, quantity)
+                  VALUES (?, ?, 1)
+                  ON DUPLICATE KEY UPDATE quantity = quantity + 1";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("ii", $userId, $productId);
+        return $stmt->execute();
+    }
+
+    private function removeProductForGuest($productId): bool
+    {
+        unset($_SESSION['cart'][$productId]);
+        return true;
+    }
+
+    private function removeProductForLoggedUser($productId, $userId): bool
+    {
+        $query = "DELETE FROM cart_items WHERE user_id = ? AND product_id = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("ii", $userId, $productId);
+        return $stmt->execute();
+    }
+
+    public function addToCartForUser($productId, $userId, $quantity = 1): bool
+    {
+        $query = "INSERT INTO cart_items (user_id, product_id, quantity) 
+              VALUES (?, ?, ?) 
+              ON DUPLICATE KEY UPDATE quantity = quantity + ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("iiii", $userId, $productId, $quantity, $quantity);
+        return $stmt->execute();
+    }
+
+    public function getProductDetailsById($productId)
+    {
+        $query = "SELECT id, name, price, image_path, stock FROM products WHERE id = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("i", $productId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        if ($result->num_rows > 0) {
+            return $result->fetch_assoc();
+        }
+
+        return null;
+    }
+
 }
+
