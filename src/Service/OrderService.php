@@ -27,8 +27,10 @@ class OrderService
     }
 
     // Create an order
-    public function createOrder($userId, $address, $total, $phone) {
-        $this->orderModel->createOrder($userId, $address, $total, $phone);
+    public function createOrder($userId, $address, $total, $phone): bool
+    {
+        $orderModel = new Order();
+        return $orderModel->createOrder($userId, $address, $total, $phone);
     }
 
     public function getCartItems()

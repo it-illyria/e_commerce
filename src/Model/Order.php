@@ -17,10 +17,18 @@ class Order
     // Create a new order
     public function createOrder($userId, $address, $total, $phone): bool
     {
-        $query = "INSERT INTO orders (user_id, address, total, status, payment_method, phone) 
-              VALUES (?, ?, ?, 'pending', 'cash', ?)";
-        $stmt = $this->db->prepare($query);
-        $stmt->bind_param("isds", $userId, $address, $total, $phone);
+        if ($userId === NULL) {
+            $query = "INSERT INTO guest_orders (address, total, status, payment_method, phone) 
+                  VALUES (?, ?, 'pending', 'cash', ?)";
+            $stmt = $this->db->prepare($query);
+            $stmt->bind_param("sds", $address, $total, $phone);
+        } else {
+            $query = "INSERT INTO orders (user_id, address, total, status, payment_method, phone) 
+                  VALUES (?, ?, ?, 'pending', 'cash', ?)";
+            $stmt = $this->db->prepare($query);
+            $stmt->bind_param("isds", $userId, $address, $total, $phone);
+        }
+
         return $stmt->execute();
     }
 

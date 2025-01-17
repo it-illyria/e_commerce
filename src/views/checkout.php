@@ -5,11 +5,43 @@
     <h1 class="text-3xl font-semibold text-center text-gray-800 mb-8">Checkout</h1>
 
     <?php if (isset($orderSuccess) && $orderSuccess): ?>
+        <!-- Modal for Success Confirmation -->
+        <div id="successModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden">
+            <div class="bg-white rounded-lg shadow-lg p-6 max-w-sm w-full">
+                <div class="flex justify-between items-center mb-4">
+                    <h5 class="text-xl font-semibold">Order Confirmation</h5>
+                    <button class="text-gray-600 hover:text-gray-900" id="closeModal">&times;</button>
+                </div>
+                <p class="mb-4">Your order has been placed successfully!</p>
+                <div class="flex justify-end">
+                    <button id="redirectBtn" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">Go to
+                        Home
+                    </button>
+                </div>
+            </div>
+        </div>
+
         <script>
-            // Show success alert after order placement
-            alert("Order placed successfully!");
+            window.onload = function () {
+                const modal = document.getElementById('successModal');
+                modal.classList.remove('hidden');
+
+                document.getElementById('redirectBtn').addEventListener('click', function () {
+                    window.location.href = '/';
+                });
+
+                document.getElementById('closeModal').addEventListener('click', function () {
+                    modal.classList.add('hidden');
+                    window.location.href = '/';
+                });
+            };
+
+            setTimeout(function () {
+                window.location.href = '/';
+            }, 5000);
         </script>
     <?php endif; ?>
+
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
         <div class="bg-white p-8 rounded-lg shadow-lg">

@@ -24,7 +24,8 @@ class OrderController
     }
 
     /// Checkout process
-    public function checkout() {
+    public function checkout()
+    {
         // Fetch the cart items
         $cartItems = $this->orderService->getCartItems();
 
@@ -43,21 +44,21 @@ class OrderController
             $total += $product['price'];
         }
 
-        $orderSuccess = false; // Flag to indicate order placement status
+        $orderSuccess = false;
 
         // Handle form submission
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $address = $_POST['address'];
             $phone = $_POST['phone'];
-            $userId = $_SESSION['user_id'] ?? null; // Null for guests
+            $userId = $_SESSION['user_id'] ?? null;
             $this->orderService->createOrder($userId, $address, $total, $phone);
-            $orderSuccess = true; // Mark order as placed
+            $orderSuccess = true;
+
         }
 
         // Pass variables to the view
         include __DIR__ . "/../views/checkout.php";
     }
-
 
 
 }

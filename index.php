@@ -3,6 +3,13 @@
 require_once __DIR__ . '/vendor/autoload.php';
 
 session_start();
+
+
+if (basename($_SERVER['SCRIPT_NAME']) === 'index.php' && $_SERVER['REQUEST_URI'] === '/index.php') {
+    header('Location: /');
+    exit;
+}
+
 $userId = $_SESSION['user_id'] ?? null;
 
 use App\Controller\OrderController;
@@ -14,7 +21,7 @@ $requestUri = $_SERVER['REQUEST_URI'];
 $uri = parse_url($requestUri, PHP_URL_PATH);
 
 // Default values
-$pageTitle = 'E-Commerce';
+$pageTitle = 'My Shop';
 
 // Define basic routing
 switch ($uri) {
@@ -81,6 +88,7 @@ switch ($uri) {
         $content = __DIR__ . '/views/thank_you.php';
         $routeFound = true;
         break;
+
 
     // Home page / Product List
     case '/':
